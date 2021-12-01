@@ -15,7 +15,6 @@ import com.testmonitor.resources.TestCase;
 import com.testmonitor.resources.TestResult;
 import com.testmonitor.resources.TestRun;
 import com.testmonitor.resources.TestSuite;
-import com.testmonitor.resources.User;
 
 /**
  * @author TestMonitor
@@ -30,8 +29,6 @@ public class TestMonitorTestRun {
     private Milestone milestone;
 
     private TestRun testRun;
-
-    private User user;
 
     /**
      * TestMonitorTestRun constructor
@@ -59,19 +56,24 @@ public class TestMonitorTestRun {
      * @throws URISyntaxException
      */
     protected void initializeTestRun(Integer projectId, Integer milestoneId, String testRunPrefix) throws IOException, URISyntaxException {
+
+        // Retrieve project and milestone
         this.project = this.client.projects().get(projectId);
         this.milestone = this.client.milestones(project).get(milestoneId);
 
+        // Create a new test run
         this.testRun = this.client.testRuns(this.project).findOrCreate(this.generateTestRunName(testRunPrefix), milestone.getId());
-        this.user = this.client.users().authenticatedUser();
-
+        
+        // Self-assign test run
         this.client.testRuns(this.project).assignUsers(
             testRun, 
-            new ArrayList<>(Arrays.asList(user.getId()))
+            new ArrayList<>(Arrays.asList(this.client.users().authenticatedUser().getId()))
         );
     }
     
     /**
+     * Generates a test run name using a timestamp.
+     * 
      * @param prefix Test run prefix
      * @return A test run name
      */
@@ -91,9 +93,11 @@ public class TestMonitorTestRun {
      * @throws IOException
      */
     public TestResult storeTestResult(String testSuiteName, String testCaseName, TestResult testResult) throws IOException, URISyntaxException {
+        // Find or create a matching test suite and test case
         TestSuite testSuite = this.client.testSuites(this.project).findOrCreate(testSuiteName);
         TestCase testCase = this.client.testCases(this.project).findOrCreate(testCaseName, testSuite.getId());
 
+        // Add test case and run data to test result
         testResult.setTestCaseId(testCase.getId())
                   .setTestRunId(this.testRun.getId());
 
@@ -111,6 +115,8 @@ public class TestMonitorTestRun {
      * @throws IOException
      */
     public TestResult storeTestResult(String testSuiteName, String testCaseName, TestResult testResult, File attachment) throws IOException, URISyntaxException {
+        testResult.setDraft(true);
+
         TestResult result = this.storeTestResult(testSuiteName, testCaseName, testResult);
 
         if (attachment != null) {
