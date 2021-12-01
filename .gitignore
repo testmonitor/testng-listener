@@ -1,0 +1,36 @@
+# Package Files
+*.jar
+*.war
+*.ear
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# VSCode
+.vscode/
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+
+# Compiled Files
+*.class
+bin/
+build/
+java/build/**
+
+# Test Files
+src/com/testmonitor/main/Main.java
+
+# Documentation
+javadoc/
