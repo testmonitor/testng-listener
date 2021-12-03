@@ -50,7 +50,8 @@ public class TestMonitorListener implements ISuiteListener, ITestListener {
         File screenshot = this.generateScreenshot(result);
 
         TestResult testResult = new TestResult()
-            .setTestResultCategoryId(TestResultCategory.PASSED);
+            .setTestResultCategoryId(TestResultCategory.PASSED)
+                .setDescription("");
 
         if (screenshot != null) {
             testResult.addAttachment(screenshot);
