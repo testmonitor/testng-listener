@@ -3,6 +3,7 @@ package com.testmonitor.listener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -78,8 +79,7 @@ public class TestMonitorTestRun {
      * @return A test run name
      */
     private String generateTestRunName(String prefix) {
-//        String timestamp = LocalTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
-        String timestamp = "aaa";
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
 
         return prefix + timestamp;
     }
