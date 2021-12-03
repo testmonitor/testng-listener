@@ -7,6 +7,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.testmonitor.api.Client;
 import com.testmonitor.resources.Milestone;
@@ -96,6 +97,9 @@ public class TestMonitorTestRun {
         // Find or create a matching test suite and test case
         TestSuite testSuite = this.client.testSuites(this.project).findOrCreate(testSuiteName);
         TestCase testCase = this.client.testCases(this.project).findOrCreate(testCaseName, testSuite.getId());
+
+        // Assign test case to test run
+        this.client.testRuns(this.project).mergeTestCases(this.testRun, List.of(testCase.getId()));
 
         // Add test case and run data to test result
         testResult.setTestCaseId(testCase.getId())
