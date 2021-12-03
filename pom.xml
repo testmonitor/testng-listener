@@ -6,7 +6,7 @@
     <groupId>com.testmonitor</groupId>
     <artifactId>testng-listener</artifactId>
     <packaging>jar</packaging>
-    <version>0.1</version>
+    <version>0.2</version>
 
     <name>TestMonitorTestNGListener</name>
     <description>TestMonitor TestNG listener</description>
