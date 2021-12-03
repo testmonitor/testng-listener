@@ -49,7 +49,7 @@ public class TestMonitorListener implements ISuiteListener, ITestListener {
 
         TestResult testResult = new TestResult()
             .setTestResultCategoryId(TestResultCategory.PASSED)
-                .setDescription("");
+            .setDescription("");
 
         try {
             testRun.storeTestResult(testSuite, testCase, testResult);
