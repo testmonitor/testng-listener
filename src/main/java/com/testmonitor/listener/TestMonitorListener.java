@@ -47,8 +47,14 @@ public class TestMonitorListener implements ISuiteListener, ITestListener {
         String testSuite = this.generateTestSuiteName(result);
         String testCase = this.generateTestCaseName(result);
 
+        File screenshot = this.generateScreenshot(result);
+
         TestResult testResult = new TestResult()
             .setTestResultCategoryId(TestResultCategory.PASSED);
+
+        if (screenshot != null) {
+            testResult.addAttachment(screenshot);
+        }
 
         try {
             testRun.storeTestResult(testSuite, testCase, testResult);
@@ -68,8 +74,12 @@ public class TestMonitorListener implements ISuiteListener, ITestListener {
             .setTestResultCategoryId(TestResultCategory.FAILED)
             .setDescription(result.getThrowable().getMessage());
 
+        if (screenshot != null) {
+            testResult.addAttachment(screenshot);
+        }
+
         try {
-            testRun.storeTestResult(testSuite, testCase, testResult, screenshot);
+            testRun.storeTestResult(testSuite, testCase, testResult);
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
