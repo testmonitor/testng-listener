@@ -53,7 +53,7 @@ Start with adding the listener to listeners section in your test suite XML:
 </suite>
 ```
 
-Next, create a `testmonitor.properties` file in project directory and use the following configuration:
+Next, create a `testmonitor.properties` file in your project directory and add this configuration (change the values according to your preferences):
 
 ```properties
 TESTMONITOR_DOMAIN=mydomain.testmonitor.com
