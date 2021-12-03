@@ -3,6 +3,7 @@ package com.testmonitor.listener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -78,7 +79,7 @@ public class TestMonitorTestRun {
      * @return A test run name
      */
     private String generateTestRunName(String prefix) {
-        String timestamp = LocalTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
 
         return prefix + timestamp;
     }
@@ -102,27 +103,5 @@ public class TestMonitorTestRun {
                   .setTestRunId(this.testRun.getId());
 
         return this.client.testResults(this.project).create(testResult);
-    }
-
-    /**
-     * Create or re-use a test case, assign it to this run, and store a test result.
-     *
-     * @param testSuiteName Test suite name
-     * @param testCaseName Test case name
-     * @param testResult Test result object
-     * @param attachment File attachment
-     * @throws URISyntaxException
-     * @throws IOException
-     */
-    public TestResult storeTestResult(String testSuiteName, String testCaseName, TestResult testResult, File attachment) throws IOException, URISyntaxException {
-        testResult.setDraft(true);
-
-        TestResult result = this.storeTestResult(testSuiteName, testCaseName, testResult);
-
-        if (attachment != null) {
-            this.client.testResults(this.project).addAttachment(result, attachment);
-        }
-
-        return result;
     }
 }
