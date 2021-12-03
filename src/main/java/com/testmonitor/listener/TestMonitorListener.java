@@ -47,15 +47,9 @@ public class TestMonitorListener implements ISuiteListener, ITestListener {
         String testSuite = this.generateTestSuiteName(result);
         String testCase = this.generateTestCaseName(result);
 
-        File screenshot = this.generateScreenshot(result);
-
         TestResult testResult = new TestResult()
             .setTestResultCategoryId(TestResultCategory.PASSED)
                 .setDescription("");
-
-        if (screenshot != null) {
-            testResult.addAttachment(screenshot);
-        }
 
         try {
             testRun.storeTestResult(testSuite, testCase, testResult);
