@@ -6,7 +6,8 @@
     <groupId>com.testmonitor</groupId>
     <artifactId>testng-listener</artifactId>
     <packaging>jar</packaging>
-    <version>1.1</version>
+    <version>1.2</version>
+
     <name>TestMonitorTestNGListener</name>
     <description>TestMonitor TestNG listener</description>
     <url>https://www.testmonitor.com/</url>
@@ -85,7 +86,7 @@
         <dependency>
             <groupId>com.testmonitor</groupId>
             <artifactId>api-java-client</artifactId>
-            <version>1.1</version>
+            <version>1.2</version>
         </dependency>
 
     </dependencies>
