@@ -26,7 +26,7 @@ public class TestMonitorListener implements ISuiteListener, ITestListener {
 
     /**
      * TestMonitorListener constructor
-     * 
+     *
      * @throws NumberFormatException
      * @throws IOException
      * @throws URISyntaxException
@@ -35,8 +35,8 @@ public class TestMonitorListener implements ISuiteListener, ITestListener {
      */
     public TestMonitorListener() throws NumberFormatException, IOException, URISyntaxException, MissingPropertiesFileException, MissingPropertyException {
         TestMonitorListener.testRun = new TestMonitorTestRun(
-            new Client(Configuration.getDomain(), Configuration.getToken()), 
-            Configuration.getProjectId(), 
+            new Client(Configuration.getDomain(), Configuration.getToken()),
+            Configuration.getProjectId(),
             Configuration.getMilestoneId(),
             Configuration.getTestRunPrefix()
         );
@@ -48,7 +48,7 @@ public class TestMonitorListener implements ISuiteListener, ITestListener {
         String testCase = this.generateTestCaseName(result);
 
         TestResult testResult = new TestResult()
-            .setTestResultCategoryId(TestResultCategory.PASSED)
+            .setTestResultStatusId(TestResultStatus.PASSED)
             .setDescription("");
 
         try {
@@ -66,7 +66,7 @@ public class TestMonitorListener implements ISuiteListener, ITestListener {
         File screenshot = this.generateScreenshot(result);
 
         TestResult testResult = new TestResult()
-            .setTestResultCategoryId(TestResultCategory.FAILED)
+            .setTestResultStatusId(TestResultStatus.FAILED)
             .setDescription(result.getThrowable().getMessage());
 
         if (screenshot != null) {
@@ -86,7 +86,7 @@ public class TestMonitorListener implements ISuiteListener, ITestListener {
         String testCase = this.generateTestCaseName(result);
 
         TestResult testResult = new TestResult()
-            .setTestResultCategoryId(TestResultCategory.CAUTION)
+            .setTestResultStatusId(TestResultStatus.CAUTION)
             .setDescription(result.getThrowable().getMessage());
 
         try {
