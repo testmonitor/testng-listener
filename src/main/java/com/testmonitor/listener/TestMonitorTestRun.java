@@ -76,7 +76,6 @@ public class TestMonitorTestRun {
      * @throws URISyntaxException
      */
     protected void initializeTestRun(Integer projectId, Integer milestoneId, String testRunPrefix) throws IOException, URISyntaxException {
-
         // Retrieve project and milestone
         this.project = this.client.projects().get(projectId);
         this.milestone = this.client.milestones(project).get(milestoneId);
