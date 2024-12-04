@@ -30,6 +30,26 @@ public class TestMonitorTestRun {
 
     private TestRun testRun;
 
+    private TestCaseFolder parentTestCaseFolder;
+
+    /**
+     * TestMonitorTestRun constructor
+     *
+     * @param client TestMonitor client
+     * @param projectId Project ID
+     * @param milestoneId Milestone ID
+     * @param testRunPrefix Test run prefix
+     * @param parentTestCaseFolder Parent test case folder
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    public TestMonitorTestRun(Client client, Integer projectId, Integer milestoneId, String testRunPrefix, TestCaseFolder parentTestCaseFolder) throws IOException, URISyntaxException {
+        this.client = client;
+        this.parentTestCaseFolder = parentTestCaseFolder;
+
+        this.initializeTestRun(projectId, milestoneId, testRunPrefix);
+    }
+
     /**
      * TestMonitorTestRun constructor
      *
@@ -93,8 +113,30 @@ public class TestMonitorTestRun {
      * @throws IOException
      */
     public TestResult storeTestResult(String testCaseFolderName, String testCaseName, TestResult testResult) throws IOException, URISyntaxException {
+        if (this.parentTestCaseFolder instanceof TestCaseFolder) {
+            return this.storeTestResult(testCaseFolderName, testCaseName, this.parentTestCaseFolder, testResult);
+        }
+
         // Find or create a matching test suite and test case
         TestCaseFolder folder = this.client.testCaseFolders(this.project).findOrCreate(testCaseFolderName);
+        TestCase testCase = this.client.testCases(this.project).findOrCreate(testCaseName, folder);
+
+        return this.storeTestResult(testCase, testResult);
+    }
+
+    /**
+     * Create or re-use a test case, assign it to this run, and store a test result.
+     *
+     * @param testCaseFolderName Test suite name
+     * @param testCaseName Test case name
+     * @param parentFolder Parent folder
+     * @param testResult Test result object
+     * @throws URISyntaxException
+     * @throws IOException
+     */
+    public TestResult storeTestResult(String testCaseFolderName, String testCaseName, TestCaseFolder parentFolder, TestResult testResult) throws IOException, URISyntaxException {
+        // Find or create a matching test suite and test case
+        TestCaseFolder folder = this.client.testCaseFolders(this.project).findOrCreate(testCaseFolderName, parentFolder);
         TestCase testCase = this.client.testCases(this.project).findOrCreate(testCaseName, folder);
 
         return this.storeTestResult(testCase, testResult);
