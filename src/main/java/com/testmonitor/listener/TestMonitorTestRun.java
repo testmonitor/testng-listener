@@ -30,26 +30,6 @@ public class TestMonitorTestRun {
 
     private TestRun testRun;
 
-    private TestCaseFolder parentTestCaseFolder;
-
-    /**
-     * TestMonitorTestRun constructor
-     *
-     * @param client TestMonitor client
-     * @param projectId Project ID
-     * @param milestoneId Milestone ID
-     * @param testRunPrefix Test run prefix
-     * @param parentTestCaseFolder Parent test case folder
-     * @throws IOException
-     * @throws URISyntaxException
-     */
-    public TestMonitorTestRun(Client client, Integer projectId, Integer milestoneId, String testRunPrefix, TestCaseFolder parentTestCaseFolder) throws IOException, URISyntaxException {
-        this.client = client;
-        this.parentTestCaseFolder = parentTestCaseFolder;
-
-        this.initializeTestRun(projectId, milestoneId, testRunPrefix);
-    }
-
     /**
      * TestMonitorTestRun constructor
      *
@@ -112,10 +92,6 @@ public class TestMonitorTestRun {
      * @throws IOException
      */
     public TestResult storeTestResult(String testCaseFolderName, String testCaseName, TestResult testResult) throws IOException, URISyntaxException {
-        if (this.parentTestCaseFolder instanceof TestCaseFolder) {
-            return this.storeTestResult(testCaseFolderName, testCaseName, this.parentTestCaseFolder, testResult);
-        }
-
         // Find or create a matching test suite and test case
         TestCaseFolder folder = this.client.testCaseFolders(this.project).findOrCreate(testCaseFolderName);
         TestCase testCase = this.client.testCases(this.project).findOrCreate(testCaseName, folder);
