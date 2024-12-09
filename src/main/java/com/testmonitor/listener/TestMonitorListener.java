@@ -99,7 +99,7 @@ public class TestMonitorListener implements ISuiteListener, ITestListener {
     /**
      * @param result Test result
      *
-     * @return A test suite name
+     * @return A test case folder name
      */
     protected String generateFolderName(ITestResult result) {
         return result.getTestContext().getSuite().getName();
