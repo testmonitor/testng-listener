@@ -44,7 +44,7 @@ public class TestMonitorListener implements ISuiteListener, ITestListener {
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        String testSuite = this.generateTestSuiteName(result);
+        String testCaseFolder = this.generateFolderName(result);
         String testCase = this.generateTestCaseName(result);
 
         TestResult testResult = new TestResult()
@@ -52,7 +52,7 @@ public class TestMonitorListener implements ISuiteListener, ITestListener {
             .setDescription("");
 
         try {
-            testRun.storeTestResult(testSuite, testCase, testResult);
+            testRun.storeTestResult(testCaseFolder, testCase, testResult);
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
@@ -60,7 +60,7 @@ public class TestMonitorListener implements ISuiteListener, ITestListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
-        String testSuite = this.generateTestSuiteName(result);
+        String testCaseFolder = this.generateFolderName(result);
         String testCase = this.generateTestCaseName(result);
 
         File screenshot = this.generateScreenshot(result);
@@ -74,7 +74,7 @@ public class TestMonitorListener implements ISuiteListener, ITestListener {
         }
 
         try {
-            testRun.storeTestResult(testSuite, testCase, testResult);
+            testRun.storeTestResult(testCaseFolder, testCase, testResult);
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
@@ -82,7 +82,7 @@ public class TestMonitorListener implements ISuiteListener, ITestListener {
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        String testSuite = this.generateTestSuiteName(result);
+        String testCaseFolder = this.generateFolderName(result);
         String testCase = this.generateTestCaseName(result);
 
         TestResult testResult = new TestResult()
@@ -90,7 +90,7 @@ public class TestMonitorListener implements ISuiteListener, ITestListener {
             .setDescription(result.getThrowable().getMessage());
 
         try {
-            testRun.storeTestResult(testSuite, testCase, testResult);
+            testRun.storeTestResult(testCaseFolder, testCase, testResult);
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
@@ -99,9 +99,9 @@ public class TestMonitorListener implements ISuiteListener, ITestListener {
     /**
      * @param result Test result
      *
-     * @return A test suite name
+     * @return A test case folder name
      */
-    protected String generateTestSuiteName(ITestResult result) {
+    protected String generateFolderName(ITestResult result) {
         return result.getTestContext().getSuite().getName();
     }
 
