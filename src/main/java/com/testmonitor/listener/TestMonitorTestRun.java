@@ -85,14 +85,14 @@ public class TestMonitorTestRun {
     /**
      * Create or re-use a test case, assign it to this run, and store a test result.
      *
-     * @param testCaseFolderName Test suite name
+     * @param testCaseFolderName Test case folder name
      * @param testCaseName Test case name
      * @param testResult Test result object
      * @throws URISyntaxException
      * @throws IOException
      */
     public TestResult storeTestResult(String testCaseFolderName, String testCaseName, TestResult testResult) throws IOException, URISyntaxException {
-        // Find or create a matching test suite and test case
+        // Find or create a matching test case folder and test case
         TestCaseFolder folder = this.client.testCaseFolders(this.project).findOrCreate(testCaseFolderName);
         TestCase testCase = this.client.testCases(this.project).findOrCreate(testCaseName, folder);
 
@@ -102,7 +102,7 @@ public class TestMonitorTestRun {
     /**
      * Create or re-use a test case, assign it to this run, and store a test result.
      *
-     * @param testCaseFolderName Test suite name
+     * @param testCaseFolderName Test case folder name
      * @param testCaseName Test case name
      * @param parentFolder Parent folder
      * @param testResult Test result object
@@ -110,7 +110,7 @@ public class TestMonitorTestRun {
      * @throws IOException
      */
     public TestResult storeTestResult(String testCaseFolderName, String testCaseName, TestCaseFolder parentFolder, TestResult testResult) throws IOException, URISyntaxException {
-        // Find or create a matching test suite and test case
+        // Find or create a matching test case folder and test case
         TestCaseFolder folder = this.client.testCaseFolders(this.project).findOrCreate(testCaseFolderName, parentFolder);
         TestCase testCase = this.client.testCases(this.project).findOrCreate(testCaseName, folder);
 
