@@ -1,5 +1,7 @@
 # TestMonitor TestNG Listener
 
+> ⚠️ This project has been archived and is no longer maintained. Please head over to [Maven Central Repository - testng-reporter](https://central.sonatype.com/artifact/com.testmonitor/testng-reporter) for the official replacement and latest releases.
+
 This TestNG listener can be used to report the results for your test cases in [TestMonitor](https://www.testmonitor.com). Additionally, 
 by implementing the `HasWebdriver` interface, Selenium test results will be annotated with a screenshot when test cases fail.
 
